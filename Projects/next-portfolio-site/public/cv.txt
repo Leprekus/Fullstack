@@ -1,0 +1,46 @@
+﻿Raul Rodriguez Castro
+
+
+Contact Information:
+
+
+Email: raulrodriguez@leprekus.dev
+Phone: (778) 938-5724
+GitHub: Leprekus
+Summary:
+
+
+Highly motivated and goal-oriented individual with a strong passion for technology and a dedication to continuous learning. Proficient in React and experienced with end-to-end testing. Native speaker of English and Spanish, fluent in German (B2 level). Demonstrated ability to think outside the box and effectively tackle challenges, with excellent communication skills and a team-oriented approach to problem-solving. I am able to build fullstack applications using Redux and the Nextjs framework using Server Side Rendering. I am also knowledgeable in Typescript in order to write reliable, typesafe code ready for production. 
+
+
+Experience:
+
+
+React Developer (2021-Present)
+Reddit clone using the Reddit API and React
+Medium Clone (Fullstack Application using Sanity, Typescript and Nextjs)
+Expanded technology skillset through self-directed learning and continued development of the project
+Education:
+
+
+Self-taught Software Development (2021-Present)
+Completed various online courses and tutorials through Codecademy to learn the fundamentals of software development
+Currently focusing on React and end-to-end testing
+
+
+Spoken Languages:
+
+
+English (native)
+Spanish (native)
+German (B2 level)
+
+
+Skills:
+React
+End-to-end testing
+Problem-solving
+Teamwork
+Communication
+Typescript
+Nextjs
