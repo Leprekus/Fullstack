@@ -11,7 +11,7 @@ export default  function Home() {
   }
   return (
     <>
-      <button onClick={createTodo}>click</button>
+      
     </>
   )
 }
