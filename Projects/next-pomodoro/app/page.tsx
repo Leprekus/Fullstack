@@ -1,17 +1,13 @@
 "use client"
-import Image from 'next/image'
+
+import TodoList from '@/components/sections/todo-list'
+
 
 export default  function Home() {
-  const createTodo = async () =>{
-
-    await fetch('/api/create-todo', {
-      method: 'POST',
-      body: JSON.stringify({ test: "test" })
-    })
-  }
+  
   return (
     <>
-      
+      <TodoList/>
     </>
   )
 }

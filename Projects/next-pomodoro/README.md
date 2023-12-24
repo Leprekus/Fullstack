@@ -27,3 +27,7 @@ PATCH
 GET
 
 DEL
+
+## Colors
+
+Grays for outlines and icons 400
