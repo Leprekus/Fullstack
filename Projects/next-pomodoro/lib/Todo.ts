@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-class Todo {
+export class Todo {
     id: string;
     _title: string;
     _description: string;
