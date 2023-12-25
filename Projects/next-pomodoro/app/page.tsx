@@ -1,13 +1,14 @@
 "use client"
 
-import TodoList from '@/components/sections/todo-list'
+import TodoCard from '@/components/card/todo-card'
+import TodoList from '@/components/list'
 
 
 export default  function Home() {
   
   return (
     <>
-      <TodoList/>
+      <TodoList Component={TodoCard}/>
     </>
   )
 }
