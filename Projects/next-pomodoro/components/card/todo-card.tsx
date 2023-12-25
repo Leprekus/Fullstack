@@ -1,7 +1,7 @@
-import { GripVertical, Plus, PenLine, MoreHorizontal } from 'lucide-react';
+import { GripVertical, MoreHorizontal, PenLine, Plus } from 'lucide-react';
 
+import { useSidePeekStore } from '@/modal/side-peek/side-peek-modal';
 import ButtonGroup from '../button-group';
-import { useSidePeekStore } from '@/modal/side-peek-modal';
 interface TodoCardProps {
     handleOnClick: () => void;
 

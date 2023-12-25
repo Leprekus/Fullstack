@@ -1,5 +1,6 @@
+
 'use client'
-import SidePeekModal from '@/modal/components/side-peek-modal';
+import SidePeekModal from '@/modal/side-peek/components/side-peek-modal';
 import { useEffect, useState } from 'react';
 
 export default function ModalProvider() {
