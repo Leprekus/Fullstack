@@ -8,6 +8,7 @@
   - md basically
 - anonymous session storage
   - get persistent todo's list, etc storage without creating account
+- collapsible cards with rich ui
 
 
 ## Approach:
