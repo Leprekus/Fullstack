@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+[contentEditable=true]:empty:not(:focus):before {
+    content: "Start writing or type '/' to see commands";
+    color: #9ca3af;
+  }

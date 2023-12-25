@@ -14,15 +14,15 @@ export default function TodoList() {
         return (
             <div
                 className="
-                  w-96
-                  h-10
-                  hover:bg-gray-100
-                  rounded-md
-                  text-gray-400
-                  transition
-                  cursor-pointer
-                  flex
-                  items-baseline"
+                w-96
+                h-10
+                hover:bg-gray-100
+                rounded-md
+                text-gray-400
+                transition
+                cursor-pointer
+                flex
+                items-baseline"
                 onClick={addTodo}
             >
                 <div className="flex my-auto">

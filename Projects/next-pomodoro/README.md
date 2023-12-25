@@ -32,3 +32,4 @@ DEL
 ## Colors
 
 Grays for outlines and icons 400
+clickable buttons p-0.5 bg-gray-100 transition-none
