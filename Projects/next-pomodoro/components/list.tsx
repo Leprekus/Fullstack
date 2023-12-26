@@ -1,14 +1,18 @@
 'use client';
 
 import { GripVertical, Plus } from 'lucide-react';
-import { useState } from 'react';
-interface ListProps<T extends React.ComponentType<any>> {
-    Component: T;
+import { type ReactElement, useState } from 'react';
+interface ListProps {
+    Component: ReactElement;
+    fill?: Number
 }
-export default function List<T extends React.ComponentType<any>>({
+export default function List<T>({
     Component,
-}: ListProps<T>) {
-    const [items, setItems] = useState<(typeof Component)[]>([]);
+    fill = 0
+}: ListProps) {
+    const initialState =
+    Array.from({ length: (fill as number) }, (_, index) => (Component));
+    const [items, setItems] = useState<ReactElement[]>(initialState);
     const addItem = () => {
         setItems((prev) => [...prev, Component]);
     };
@@ -35,7 +39,7 @@ export default function List<T extends React.ComponentType<any>>({
         );
     return (
         <>
-            {items.map((item: React.ComponentType<any>, i) => {
+            {items.map((item, i) => {
                 const Component = item;
                 return (
                     <div key={i} className="flex group items-center">
@@ -50,7 +54,7 @@ export default function List<T extends React.ComponentType<any>>({
                                 className="cursor-grab active:cursor-grabbing p-0.5 rounded-[2px] hover:bg-gray-100"
                             />
                         </div>
-                        <Component key={i} />
+                        {item}
                     </div>
                 );
             })}

@@ -3,6 +3,7 @@ import SidePeakHeader from './side-peek-header';
 import { useRef } from 'react';
 import { captureRejectionSymbol } from 'events';
 import EditableElement from '@/components/ui/editable-element';
+import List from '@/components/list';
 
 /**
  * structure:
@@ -29,13 +30,20 @@ export default function SidePeekModal() {
             <div className='min-w-full min-h-screen  pointer-events-auto bg-white'> {/*sheet*/}
                 <SidePeakHeader/>
                 <div onClick={focusCurrent} className='px-6 bg-red-500 h-96'>{/*paper*/}
-                    <EditableElement
+    
+                    <List
+                    fill={1}
+                    Component={
+                        <EditableElement
                         assignRef={assignRef}
                         currentRef={currentRef}
-                    />
+                        />
+                    }/>
                 </div>
             </div>
         </div>
+
+        
 
     )
 }
