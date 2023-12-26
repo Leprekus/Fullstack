@@ -23,13 +23,16 @@ export default function SidePeekModal() {
     }
 
     const assignRef = (elementRef: React.MutableRefObject<HTMLDivElement | null>) => {
-        if(!currentRef && elementRef) currentRef = elementRef
+        if(elementRef) {
+            currentRef = elementRef
+            console.log('assigned')
+        }
     }
     return (
         <div className='absolute top-0 right-0 z-10 w-[430px] min-h-screen border-l shadow-md'>
             <div className='min-w-full min-h-screen  pointer-events-auto bg-white'> {/*sheet*/}
                 <SidePeakHeader/>
-                <div onClick={focusCurrent} className='px-6 bg-red-500 h-96'>{/*paper*/}
+                <div onClick={focusCurrent} className='mx-auto w-96 h-96'>{/*paper*/}
     
                     <List
                     fill={1}
