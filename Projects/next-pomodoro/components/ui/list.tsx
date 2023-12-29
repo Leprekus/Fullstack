@@ -1,7 +1,7 @@
 'use client';
 
 import { GripVertical, Plus } from 'lucide-react';
-import { type ReactElement, useState } from 'react';
+import { type ReactElement, useState, useEffect } from 'react';
 interface ListProps {
     Component: ReactElement;
     fill?: Number
@@ -16,6 +16,15 @@ export default function List<T>({
     const addItem = () => {
         setItems((prev) => [...prev, Component]);
     };
+
+    useEffect(() =>{
+        const handleEnter = (e: KeyboardEvent) => {
+            if(e.key === 'Enter') addItem()
+            console.log(e.key)
+        }
+        document.addEventListener('keydown', handleEnter)
+        return () => document.removeEventListener('keydown', handleEnter)
+    },[])
 
     if (items.length === 0)
         return (
@@ -40,7 +49,6 @@ export default function List<T>({
     return (
         <>
             {items.map((item, i) => {
-                const Component = item;
                 return (
                     <div key={i} className="flex group items-center">
                         <div className="group-hover:opacity-100 flex text-gray-400 opacity-0 transition">

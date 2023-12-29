@@ -3,7 +3,6 @@ import List from '@/components/ui/list';
 import { useSidePeekStore } from '@/modal/side-peek/side-peek-modal';
 import SidePeakHeader from './side-peek-header';
 import { AnimatePresence, motion } from 'framer-motion'
-import { createRef, useEffect, useRef, useState } from 'react';
 /**
  * structure:
  * <div> conatiner: creates a block containing all of the elements (contains container-specific options)
@@ -14,8 +13,6 @@ export default function SidePeekModal() {
     
     const display = useSidePeekStore(state => state.display)
     let currentRef: React.MutableRefObject<HTMLDivElement | null> | null = null
-
-    //if(!display) return null
 
     const focusCurrent = (e:React.MouseEvent<HTMLDivElement>) => {
         if (currentRef)
