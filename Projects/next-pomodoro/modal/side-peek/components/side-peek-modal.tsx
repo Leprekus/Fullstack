@@ -2,7 +2,8 @@ import EditableElement from '@/components/editable-element';
 import List from '@/components/ui/list';
 import { useSidePeekStore } from '@/modal/side-peek/side-peek-modal';
 import SidePeakHeader from './side-peek-header';
-
+import { AnimatePresence, motion } from 'framer-motion'
+import { createRef, useEffect, useRef, useState } from 'react';
 /**
  * structure:
  * <div> conatiner: creates a block containing all of the elements (contains container-specific options)
@@ -10,10 +11,13 @@ import SidePeakHeader from './side-peek-header';
  * </div>
  */
 export default function SidePeekModal() {
+    
     const display = useSidePeekStore(state => state.display)
-
     let currentRef: React.MutableRefObject<HTMLDivElement | null> | null = null
-    if(!display) return null
+
+    const clientWidth = window.innerWidth
+    console.log({ clientWidth})
+    //if(!display) return null
 
     const focusCurrent = (e:React.MouseEvent<HTMLDivElement>) => {
         if (currentRef)
@@ -26,27 +30,32 @@ export default function SidePeekModal() {
             console.log('assigned')
         }
     }
-    //TODO: add animations
-    return (
-        <div className='absolute top-0 right-0 z-10 w-[430px] min-h-screen border-l shadow-md'>
-            <div className='min-w-full min-h-screen  pointer-events-auto bg-white'> {/*sheet*/}
-                <SidePeakHeader/>
-                <div onClick={focusCurrent} className='mx-auto w-96 h-96'>{/*paper*/}
     
-                    <List
-                    fill={1}
-                    Component={
-                        <EditableElement
-                        assignRef={assignRef}
-                        currentRef={currentRef}
-                        />
-                    }/>
-                </div>
-            </div>
-        </div>
-
+    return (
+        <AnimatePresence>
+            {display &&
+            <motion.div
+            initial={{ opacity: 0  }}
+            animate={{ opacity: 100 }}
+            exit={{ translateX: 430 }}
+            className='absolute top-0 z-10 right-0 w-[430px] min-h-screen border-l shadow-md'>
+                <div className='min-w-full min-h-screen  pointer-events-auto bg-white'> {/*sheet*/}
+                    <SidePeakHeader/>
+                    <div
+                    onClick={focusCurrent} className='mx-auto w-96 h-96'>{/*paper*/}
         
-
+                        <List
+                        fill={1}
+                        Component={
+                            <EditableElement
+                            assignRef={assignRef}
+                            currentRef={currentRef}
+                            />
+                        }/>
+                    </div>
+                </div>
+            </motion.div>}
+        </AnimatePresence>
     )
 }
 

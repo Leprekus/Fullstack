@@ -46,7 +46,7 @@ export default function EditableElement({
             <CommandsMenuModal />
             <div
                 id={id}
-                className="p-2 transition-all hover:bg-gray-50 rounded-md cursor-text min-w-full text-xl"
+                className="p-2 transition-all hover:bg-gray-50 rounded-md cursor-text min-w-full text-sm"
                 ref={elementRef}
             />
         </>
