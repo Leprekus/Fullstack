@@ -22,15 +22,14 @@ export default function EditableElement({
         }
     }, []);
 
-    const [rendered, setRendered] = useState(false);
     const toggleCommandMenu = useCommandsMenuStore(state => state.toggle)
     useEffect(() => {
         const toggleMenu = (e: KeyboardEvent) => {
             if (e.key === '/') toggleCommandMenu()
         };
         document.addEventListener('keydown', toggleMenu);
-        if (elementRef?.current && !rendered) {
-            setRendered(true);
+        if (elementRef?.current) {
+    
             const contentEditable = new ContentEditableMarkdown(
                 id,
                 elementRef.current,
@@ -39,7 +38,7 @@ export default function EditableElement({
         }
 
         return () => document.removeEventListener('keydown', toggleMenu);
-    }, [elementRef?.current]);
+    }, []);
 
     return (
         <>

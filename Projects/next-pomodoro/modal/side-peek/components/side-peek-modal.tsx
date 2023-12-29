@@ -15,8 +15,6 @@ export default function SidePeekModal() {
     const display = useSidePeekStore(state => state.display)
     let currentRef: React.MutableRefObject<HTMLDivElement | null> | null = null
 
-    const clientWidth = window.innerWidth
-    console.log({ clientWidth})
     //if(!display) return null
 
     const focusCurrent = (e:React.MouseEvent<HTMLDivElement>) => {
@@ -30,6 +28,8 @@ export default function SidePeekModal() {
             console.log('assigned')
         }
     }
+    
+
     
     return (
         <AnimatePresence>
