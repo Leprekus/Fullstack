@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid'
-import MarkdownEditor from '../markdown-editor';
 import { ContentEditableMarkdown } from '@/lib/contenteditable-markdown';
 
 interface EditableElementProps {
@@ -10,7 +9,7 @@ interface EditableElementProps {
 }
 export default function EditableElement({ assignRef, currentRef }: EditableElementProps) {
     const elementRef = useRef<HTMLDivElement | null>(null)
-    const [id, setId] = useState(uuid())
+    const [ id ] = useState(uuid())
     useEffect(() => {
         if(currentRef === null) {
             assignRef(elementRef)
@@ -19,20 +18,28 @@ export default function EditableElement({ assignRef, currentRef }: EditableEleme
     
     const [rendered, setRendered] = useState(false)
     useEffect(() => {
+        const toggleMenu = (e: KeyboardEvent) => {
+            if(e.key === '/') console.log('menu actioned')
+        }
+        document.addEventListener('keydown', toggleMenu)
         if(elementRef?.current && !rendered) {
             setRendered(true)
             const contentEditable = new ContentEditableMarkdown(id, elementRef.current)
             contentEditable.render()
         }
+
+        return () => document.removeEventListener('keydown', toggleMenu)
     },[elementRef?.current])
     
     return (
-        <div
-            id={id}
-            // onMouseOver={() => assignRef(elementRef)}
-            className="p-2 transition-all hover:bg-gray-50 rounded-md cursor-text min-w-full text-xl"
-            ref={elementRef}
+        <>
+            
+            <div
+                id={id}
+                className="p-2 transition-all hover:bg-gray-50 rounded-md cursor-text min-w-full text-xl"
+                ref={elementRef}
 
-        />
+            />
+        </>
     );
 }
