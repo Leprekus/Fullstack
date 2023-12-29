@@ -33,15 +33,6 @@ export default function EditableElement({ assignRef, currentRef }: EditableEleme
             className="p-2 transition-all hover:bg-gray-50 rounded-md cursor-text min-w-full text-xl"
             ref={elementRef}
 
-        >{/*container*/}
-            {/* <MarkdownEditor
-                ref={elementRef}
-                autoFocus
-                contentEditable
-                className="outline-none text-sm"
-            /> */}
-            
-
-        </div>
+        />
     );
 }

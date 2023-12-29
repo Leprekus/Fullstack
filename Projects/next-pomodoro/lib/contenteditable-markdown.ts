@@ -17,48 +17,6 @@ const IDENTIFIERS = { //longest identfier is 4 chars long
 type IdentifierKey = keyof typeof IDENTIFIERS //Object.values() at type level
 type Identifier = (typeof IDENTIFIERS)[keyof typeof IDENTIFIERS] //Object.values() at type level
 
-//const output = document.getElementByid('output')
-
-const getIdentifier = (text: string): Identifier | undefined =>{
-    let result: Identifier | undefined  = undefined
-    Object.keys(IDENTIFIERS).forEach(key => {
-        const identifier: Identifier = IDENTIFIERS[key as IdentifierKey]
-        //TODO: remove log
-        if(!text.startsWith(identifier)) return
-            //processBlock(identifier, text)
-            result = identifier
-        
-    })
-
-    return result
-}
-
-const createHTMLElementForIdentifier = (identifier: Identifier) => {
-    let element = undefined
-    const container = document.getElementById('container')
-    if (!container) return
-    container.textContent = ''
-
-    switch(identifier) {
-        case IDENTIFIERS.BULLET_LIST_2_NBS:
-            const ul = document.createElement('ul')
-            const li = document.createElement('li')
-            ul.appendChild(li)
-            element = ul
-            break;
-
-    
-        }
-
-    if(!element) return
-    container?.appendChild(element)
-    }
-
-    // const processText = (e) => {
-    //     const text = e.currentTarget.textContent
-    // }
-
-
 export class ContentEditableMarkdown {
     id: string;
     div: HTMLDivElement;
