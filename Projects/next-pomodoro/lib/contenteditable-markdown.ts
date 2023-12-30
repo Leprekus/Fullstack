@@ -21,12 +21,25 @@ export class ContentEditableMarkdown {
     id: string;
     div: HTMLDivElement;
     parent: HTMLDivElement;
+    private static instance: ContentEditableMarkdown;
 
     constructor(id: string, parent: HTMLDivElement) {
+
         this.id = id;
         this.div = document.createElement('div')
         this.parent = parent;
 
+    }
+
+    public static getInstance (id: string, parent: HTMLDivElement): ContentEditableMarkdown {
+        if(
+            !ContentEditableMarkdown.instance ||
+            ContentEditableMarkdown.instance.id !== id
+        ) {
+            ContentEditableMarkdown.instance = new ContentEditableMarkdown(id, parent)
+        }
+
+        return ContentEditableMarkdown.instance
     }
 
     private getIdentifier = (text: string): Identifier | undefined =>{
@@ -46,13 +59,13 @@ export class ContentEditableMarkdown {
             const element = el as HTMLElement
             element.setAttribute('contenteditable', 'true')
             this.div.appendChild(element)
+            element.textContent = ''
             element.focus()
         }
 
     private createHTMLElementForIdentifier = (identifier: Identifier) => {
         
         if (!this.parent) return
-        this.div.textContent = ''
     
         switch(identifier) {
             case IDENTIFIERS.HEADING_1:
@@ -108,9 +121,10 @@ export class ContentEditableMarkdown {
             this.div.setAttribute('contenteditable', 'true')
             this.div.addEventListener('input', this.processText)
             this.div.className = 'outline-none text-sm'
-
+            this.div.textContent = ''
             this.parent.appendChild(this.div)
             this.div.focus()
+            console.log('appending')
             return this.div
             
         }

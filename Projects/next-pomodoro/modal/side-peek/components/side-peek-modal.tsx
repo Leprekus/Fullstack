@@ -3,6 +3,7 @@ import List from '@/components/ui/list';
 import { useSidePeekStore } from '@/modal/side-peek/side-peek-modal';
 import SidePeakHeader from './side-peek-header';
 import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect } from 'react';
 /**
  * structure:
  * <div> conatiner: creates a block containing all of the elements (contains container-specific options)
@@ -15,18 +16,16 @@ export default function SidePeekModal() {
     let currentRef: React.MutableRefObject<HTMLDivElement | null> | null = null
 
     const focusCurrent = (e:React.MouseEvent<HTMLDivElement>) => {
-        if (currentRef)
+        if (currentRef) {
             currentRef.current?.focus()
+        }
     }
 
     const assignRef = (elementRef: React.MutableRefObject<HTMLDivElement | null>) => {
         if(elementRef) {
             currentRef = elementRef
-            console.log('assigned')
         }
     }
-    
-
     
     return (
         <AnimatePresence>
@@ -35,11 +34,11 @@ export default function SidePeekModal() {
             initial={{ opacity: 0  }}
             animate={{ opacity: 100 }}
             exit={{ translateX: 430 }}
-            className='absolute top-0 z-10 right-0 w-[430px] min-h-screen border-l shadow-md'>
+            className='absolute top-0 z-10 right-0 w-[430px] min-h-screen border-l shadow-md  overflow-y-scroll'>
                 <div className='min-w-full min-h-screen  pointer-events-auto bg-white'> {/*sheet*/}
                     <SidePeakHeader/>
                     <div
-                    onClick={focusCurrent} className='mx-auto w-96 h-96'>{/*paper*/}
+                    onClick={focusCurrent} className='mx-auto w-96 h-96 mt-11'>{/*paper*/}
         
                         <List
                         fill={1}

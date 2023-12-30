@@ -17,7 +17,8 @@ export default function EditableElement({
     const elementRef = useRef<HTMLDivElement | null>(null);
     const [id] = useState(uuid());
     useEffect(() => {
-        if (currentRef === null) {
+        console.log('rendering editable')
+        if (!currentRef) {
             assignRef(elementRef);
         }
     }, []);
@@ -30,11 +31,13 @@ export default function EditableElement({
         document.addEventListener('keydown', toggleMenu);
         if (elementRef?.current) {
     
-            const contentEditable = new ContentEditableMarkdown(
-                id,
-                elementRef.current,
-            );
+            // const contentEditable = new ContentEditableMarkdown(
+            //     id,
+            //     elementRef.current,
+            // );
+            const contentEditable = ContentEditableMarkdown.getInstance(id, elementRef.current);
             contentEditable.render();
+            console.log(elementRef)
         }
 
         return () => document.removeEventListener('keydown', toggleMenu);

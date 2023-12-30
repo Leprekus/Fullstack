@@ -18,6 +18,7 @@ export default function List<T>({
     };
 
     useEffect(() =>{
+        console.log('rendering list')
         const handleEnter = (e: KeyboardEvent) => {
             if(e.key === 'Enter') addItem()
             console.log(e.key)
