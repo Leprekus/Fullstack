@@ -1,7 +1,7 @@
 'use client';
 
 import { GripVertical, Plus } from 'lucide-react';
-import { type ReactElement, useState, useEffect } from 'react';
+import { type ReactElement, useState, useEffect, useRef } from 'react';
 interface ListProps {
     Component: ReactElement;
     fill?: Number
@@ -10,9 +10,12 @@ export default function List<T>({
     Component,
     fill = 0
 }: ListProps) {
+
     const initialState =
     Array.from({ length: (fill as number) }, (_, index) => (Component));
+
     const [items, setItems] = useState<ReactElement[]>(initialState);
+
     const addItem = () => {
         setItems((prev) => [...prev, Component]);
         console.log('adding item')
@@ -21,7 +24,15 @@ export default function List<T>({
     useEffect(() =>{
         console.log('rendering list')
         const handleEnter = (e: KeyboardEvent) => {
-            if(e.key === 'Enter') addItem()
+            switch(e.key) {
+                case 'Enter':
+                    addItem()
+                    break;
+                case 'Backspace':
+                    //do smth
+                    //TODO: handle delete item
+                    break;
+            }
             console.log(e.key)
         }
         document.addEventListener('keydown', handleEnter)

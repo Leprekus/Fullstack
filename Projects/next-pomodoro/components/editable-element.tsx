@@ -38,7 +38,6 @@ export default function EditableElement({
 
     //TODO: render last element on-enter if it was list
     //TODO: allow user to reorder elements
-    //TODO: allow users to delete items with backspace
     return (
         <>
             <CommandsMenuModal />
