@@ -17,7 +17,6 @@ export default function EditableElement({
     const elementRef = useRef<HTMLDivElement | null>(null);
     const [id] = useState(uuid());
     useEffect(() => {
-        console.log('rendering editable')
         if (!currentRef) {
             assignRef(elementRef);
         }
@@ -30,19 +29,16 @@ export default function EditableElement({
         };
         document.addEventListener('keydown', toggleMenu);
         if (elementRef?.current) {
-    
-            // const contentEditable = new ContentEditableMarkdown(
-            //     id,
-            //     elementRef.current,
-            // );
             const contentEditable = ContentEditableMarkdown.getInstance(id, elementRef.current);
             contentEditable.render();
-            console.log(elementRef)
         }
 
         return () => document.removeEventListener('keydown', toggleMenu);
     }, []);
 
+    //TODO: render last element on-enter if it was list
+    //TODO: allow user to reorder elements
+    //TODO: allow users to delete items with backspace
     return (
         <>
             <CommandsMenuModal />

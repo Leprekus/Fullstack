@@ -15,6 +15,7 @@ export default function List<T>({
     const [items, setItems] = useState<ReactElement[]>(initialState);
     const addItem = () => {
         setItems((prev) => [...prev, Component]);
+        console.log('adding item')
     };
 
     useEffect(() =>{

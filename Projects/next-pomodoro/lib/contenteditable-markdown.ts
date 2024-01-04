@@ -21,6 +21,7 @@ export class ContentEditableMarkdown {
     id: string;
     div: HTMLDivElement;
     parent: HTMLDivElement;
+    isProcessed: boolean;
     private static instance: ContentEditableMarkdown;
 
     constructor(id: string, parent: HTMLDivElement) {
@@ -28,6 +29,7 @@ export class ContentEditableMarkdown {
         this.id = id;
         this.div = document.createElement('div')
         this.parent = parent;
+        this.isProcessed = false;
 
     }
 
@@ -49,6 +51,7 @@ export class ContentEditableMarkdown {
             if(!text.startsWith(identifier)) return
                 //processBlock(identifier, text)
                 result = identifier
+                this.isProcessed = true;
             
         })
     
@@ -56,10 +59,10 @@ export class ContentEditableMarkdown {
     }
 
     private createHTMLHelper = <T>(el: T) => {
+            this.div.textContent = ''
             const element = el as HTMLElement
             element.setAttribute('contenteditable', 'true')
             this.div.appendChild(element)
-            element.textContent = ''
             element.focus()
         }
 
@@ -109,9 +112,17 @@ export class ContentEditableMarkdown {
 
         }
 
-        private processText = (e: any) => {
-            
+        private resetToOriginalState = () => {
+            this.div.textContent = ''
+            this.div.innerHTML = ''
+            this.isProcessed = false
+        }
+
+        private processEvent = (e: any) => {
+    
             const text = e.currentTarget.textContent
+            if(text === '') this.resetToOriginalState()
+            if(this.isProcessed) return
             const identifier = this.getIdentifier(text)
             if(identifier) this.createHTMLElementForIdentifier(identifier)
         }
@@ -119,12 +130,11 @@ export class ContentEditableMarkdown {
         render (): HTMLDivElement {
 
             this.div.setAttribute('contenteditable', 'true')
-            this.div.addEventListener('input', this.processText)
+            this.div.addEventListener('input', this.processEvent)
             this.div.className = 'outline-none text-sm'
             this.div.textContent = ''
             this.parent.appendChild(this.div)
             this.div.focus()
-            console.log('appending')
             return this.div
             
         }
