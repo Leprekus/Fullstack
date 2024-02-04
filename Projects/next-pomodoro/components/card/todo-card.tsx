@@ -1,6 +1,6 @@
-import { GripVertical, MoreHorizontal, PenLine, Plus } from 'lucide-react';
+import { MoreHorizontal, PenLine } from 'lucide-react';
 
-import { useSidePeekStore } from '@/modal/side-peek/side-peek-modal';
+import { useSidePeekStore } from '@/stores/side-peek-modal-store';
 import ButtonGroup from '../ui/button-group';
 export default function TodoCard() {
     const toggleSidePeek = useSidePeekStore(state => state.toggle)

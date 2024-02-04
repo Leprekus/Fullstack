@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
-import { v4 as uuid } from 'uuid';
 import { ContentEditableMarkdown } from '@/lib/contenteditable-markdown';
 import CommandsMenuModal from '@/modal/commands-menu-modal/components/commands-menu-modal';
-import { useCommandsMenuStore } from '@/modal/commands-menu-modal/commands-modal';
+import { useCommandsMenuStore } from '@/stores/commands-modal-store';
+import { useEffect, useRef, useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 interface EditableElementProps {
     assignRef: (

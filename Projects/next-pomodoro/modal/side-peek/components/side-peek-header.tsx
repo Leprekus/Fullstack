@@ -1,6 +1,6 @@
 'use client'
 import { ChevronsRight } from 'lucide-react'
-import { useSidePeekStore } from '../side-peek-modal'
+import { useSidePeekStore } from '../../../stores/side-peek-modal-store'
 export default function SidePeakHeader() {
     const toggleSidePeek = useSidePeekStore(state => state.toggle)
   return (

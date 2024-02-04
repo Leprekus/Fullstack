@@ -1,9 +1,8 @@
 import EditableElement from '@/components/editable-element';
 import List from '@/components/ui/list';
-import { useSidePeekStore } from '@/modal/side-peek/side-peek-modal';
+import { useSidePeekStore } from '@/stores/side-peek-modal-store';
+import { AnimatePresence, motion } from 'framer-motion';
 import SidePeakHeader from './side-peek-header';
-import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect } from 'react';
 /**
  * structure:
  * <div> conatiner: creates a block containing all of the elements (contains container-specific options)

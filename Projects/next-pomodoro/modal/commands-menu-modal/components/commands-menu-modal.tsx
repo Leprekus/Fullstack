@@ -1,4 +1,4 @@
-import { useCommandsMenuStore } from '../commands-modal'
+import { useCommandsMenuStore } from '../../../stores/commands-modal-store'
 
 export default function CommandsMenuModal() {
     const display = useCommandsMenuStore(state => state.display)
