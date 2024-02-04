@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+const unsigned int START_ADDRESS = 0X200;
+
 typedef struct Chip8 {
     
     uint8_t registers[ 16 ];
@@ -25,12 +27,12 @@ Chip8 init() {
     Chip8 item = {
         .registers = { 0 },
         .memory = { 0 },
-        .sp = { 0 },
-        .delayTimer = { 0 },
-        .soundTimer = { 0 },
+        .sp = 0 ,
+        .delayTimer =  0 ,
+        .soundTimer =  0 ,
         .keypad = { 0 }, 
-        .index = { 0 },
-        .pc = { 0 },
+        .index = 0 ,
+        .pc =  START_ADDRESS,
         .stack = { 0 },
         .opcode = 0, //uninitialized
         .video = { 0 },
@@ -40,21 +42,24 @@ Chip8 init() {
     return item;
 }
 
-void Chip8_LoadROM() {
+void Chip8_LoadROM(Chip8 *Chip8, char const *filename) {
     
-    const unsigned int START_ADDRESS = 0X200;
 
     char *buffer = 0;
     long length;
 
     //Open file 
-    FILE *f = fopen("test.txt", "r");
+    //suffix b indicates binary
+    FILE *f = fopen(filename, "rb");
 
     if(f) {
         //move pointer to the end
-        fseek(f, 0, SEEK_END);
+        fseek(f, 0L, SEEK_END);
+
+        //get filze size
         length = ftell(f);
-        fseek(f, 0, SEEK_SET);
+        
+        fseek(f, 0L, SEEK_SET);
         buffer = malloc(length);
 
         if(buffer) { fread(buffer, 1, length, f); }
@@ -62,16 +67,40 @@ void Chip8_LoadROM() {
     }
 
     if(buffer){
-
-        for(long i = 0; i < length; ++i) {
-            printf("%s", buffer[i]);
+        printf("buffer created");
+        for(int i = 0; i < length; ++i) {
+            //potential bug here
+            //if code doesn't work as expected
+            //come back here
+            Chip8 -> memory[ START_ADDRESS + i ] = buffer[i];
         }
 
     }
 }
 
+int test_Chip8() {
+     Chip8 chip = init();
+     int counter = 0; 
+
+     if(chip.pc == START_ADDRESS) {
+        printf("pc should equal START_ADDRESS\n");    
+        ++counter;
+     }
+
+     Chip8_LoadROM(&chip, "test.txt");
+
+     char *expected = "the quick brown fox jumps over the lazy dog.";
+     if(chip.memory == expected) {
+         printf("memory should equal %c\n", expected);
+         ++counter;
+     } else {
+         printf("actual %c", chip.memory);
+     }
+
+     printf("tests passed %d/2\n", counter);
+}
 int main () {
-    
-    Chip8_LoadROM();
+   
+    test_Chip8();
     return 0;
 }

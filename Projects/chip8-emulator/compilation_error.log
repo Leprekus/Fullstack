@@ -1,20 +1,15 @@
-chip8.c:28:15: warning: braces around scalar initializer [-Wbraced-scalar-init]
-        .sp = { 0 },
-              ^~~~~
-chip8.c:29:23: warning: braces around scalar initializer [-Wbraced-scalar-init]
-        .delayTimer = { 0 },
-                      ^~~~~
-chip8.c:30:23: warning: braces around scalar initializer [-Wbraced-scalar-init]
-        .soundTimer = { 0 },
-                      ^~~~~
-chip8.c:32:18: warning: braces around scalar initializer [-Wbraced-scalar-init]
-        .index = { 0 },
-                 ^~~~~
-chip8.c:33:15: warning: braces around scalar initializer [-Wbraced-scalar-init]
-        .pc = { 0 },
-              ^~~~~
-chip8.c:67:26: warning: format specifies type 'char *' but the argument has type 'char' [-Wformat]
-            printf("%s", buffer[i]);
-                    ~~   ^~~~~~~~~
-                    %c
-6 warnings generated.
+chip8.c:93:21: warning: comparison of distinct pointer types ('uint8_t *' (aka 'unsigned char *') and 'char *') [-Wcompare-distinct-pointer-types]
+     if(chip.memory == expected) {
+        ~~~~~~~~~~~ ^  ~~~~~~~~
+chip8.c:94:45: warning: format specifies type 'int' but the argument has type 'char *' [-Wformat]
+         printf("memory should equal %c\n", expected);
+                                     ~~     ^~~~~~~~
+                                     %s
+chip8.c:97:30: warning: format specifies type 'int' but the argument has type 'uint8_t *' (aka 'unsigned char *') [-Wformat]
+         printf("actual %c", chip.memory);
+                        ~~   ^~~~~~~~~~~
+                        %s
+chip8.c:101:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+4 warnings generated.
