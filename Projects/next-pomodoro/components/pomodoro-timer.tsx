@@ -1,9 +1,17 @@
+
 import Button from './ui/button';
 import { Play } from 'lucide-react';
 import ButtonGroup from './ui/button-group';
+import { usePomodoroStore } from '@/stores/pomodoro-store';
+import { useEffect, useState } from 'react';
 
 export default function PomodoroTimer() {
 
+    const pomodoroStore = usePomodoroStore()
+   // const [intervalTime, setIntervalTime] = useState(pomodoroStore.session.duration)
+    useEffect(() => {
+        const id = setInterval(() => {}, )
+    },[])
   return (
     <div className='w-96 h-96'>
         <div className='w-fit mx-auto'>
