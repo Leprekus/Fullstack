@@ -5,7 +5,7 @@ import { Pause, Play } from 'lucide-react';
 import ButtonGroup from './ui/button-group';
 import { usePomodoroStore } from '@/stores/pomodoro-store';
 import { useEffect, useState } from 'react';
-
+import { motion } from 'framer-motion';
 const formatTime = (ms: number) => {
     ms - 1000
     const minutes = Math.floor(ms / 60000);
@@ -77,6 +77,35 @@ export default function PomodoroTimer() {
         >
             {isPaused ? <Play fill='rgb(156 163 175)'/>: <Pause fill='rgb(156 163 175)'/>  }
         </Button>
+        <div className='flex justify-between w-full px-4'>
+            {active === 1 &&
+            <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 100 }}
+            exit={{ opacity: 0 }}
+            className='text-gray-400'>
+                SESSION
+            </motion.span>
+            }
+            {active === 2 &&
+            <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 100 }}
+            exit={{ opacity: 0 }}
+            className='text-gray-400'>
+                REST
+            </motion.span>
+            }
+            {active === 3 &&
+            <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 100 }}
+            exit={{ opacity: 0 }}
+            className='text-gray-400'>
+                COOLDOWN
+            </motion.span>
+            }
+        </div>
     </div>
   )
 }
