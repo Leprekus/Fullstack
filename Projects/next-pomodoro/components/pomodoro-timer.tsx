@@ -13,8 +13,9 @@ const formatTime = (ms: number) => {
     
     // Pad single-digit seconds with a leading zero
     const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
-    return `${minutes}:${formattedSeconds}`;
+    return `${formattedMinutes}:${formattedSeconds}`;
 }
 
 
