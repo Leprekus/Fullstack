@@ -24,6 +24,10 @@ int main() {
     
     init_screen();
     int c = 0;
+    while(c != 113) {
+        c = getchar();
+        printf("pressed %d", c);
+    }
     printf("\033[%d;%dH", 0, 0);
     free(screen);
     return 0;

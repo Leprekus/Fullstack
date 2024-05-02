@@ -1,15 +1,4 @@
-chip8.c:93:21: warning: comparison of distinct pointer types ('uint8_t *' (aka 'unsigned char *') and 'char *') [-Wcompare-distinct-pointer-types]
-     if(chip.memory == expected) {
-        ~~~~~~~~~~~ ^  ~~~~~~~~
-chip8.c:94:45: warning: format specifies type 'int' but the argument has type 'char *' [-Wformat]
-         printf("memory should equal %c\n", expected);
-                                     ~~     ^~~~~~~~
-                                     %s
-chip8.c:97:30: warning: format specifies type 'int' but the argument has type 'uint8_t *' (aka 'unsigned char *') [-Wformat]
-         printf("actual %c", chip.memory);
-                        ~~   ^~~~~~~~~~~
-                        %s
-chip8.c:101:1: warning: non-void function does not return a value [-Wreturn-type]
+chip8.c:153:1: warning: non-void function does not return a value [-Wreturn-type]
 }
 ^
-4 warnings generated.
+1 warning generated.
