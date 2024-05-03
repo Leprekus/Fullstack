@@ -5,6 +5,7 @@
 #
 # Tested with Python 3.6
 #
+# Adapted by Raul Rodriguez to Follow along [https://eli.thegreenplace.net/2017/concurrent-servers-part-1-introduction/]
 # Eli Bendersky [http://eli.thegreenplace.net]
 # This code is in the public domain.
 
@@ -49,15 +50,20 @@ def make_new_connection(name, host, port):
 	rthread.start()
 
 	s = b'^abc$de^abte$f'
-	logging.info('{0} sending {1}'.formate(name, s))
+	logging.info('{0} sending {1}'.format(name, s))
 	sockobj.send(s)
 	time.sleep(1.0)
 
-	s = b'25$ab0000$abab'
+	s = b'xyz^123'
+	logging.info('{0} sending {1}'.format(name, s))
+	sockobj.send(s)
+	time.sleep(1.0)
+
+	s = b'25$^ab0000$abab'
 	logging.info('{0} sending {1}'.format(name, s))
 	sockobj.send(s)
 	time.sleep(0.2)
-
+	
 	rthread.join()
 	sockobj.close()
 	logging.info('{0} disconnecting'.format(name))
