@@ -71,6 +71,8 @@ int main(int argc, char** argv) {
 
 	printf("Serving on port %d\n", portnum);
 
+	int sockfd = listen_inet_socket(portnum);
+
 	while(1) {
 		struct sockaddr_in peer_addr;
 		

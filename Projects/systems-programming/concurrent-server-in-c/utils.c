@@ -52,7 +52,7 @@ void* xmalloc(size_t size) {
  * */
 void perror_die(char* msg) {
 	perror(msg);
-	eixt(EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
 
 /**
@@ -93,7 +93,7 @@ int listen_inet_socket(int portnum) {
 
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_addr.s_addr = INADDR_ANY;
-	ser_addr.sin_port = htons(portnums);
+	serv_addr.sin_port = htons(portnum);
 
 	if(bind(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0)
 		perror_die("ERROR on binding");
