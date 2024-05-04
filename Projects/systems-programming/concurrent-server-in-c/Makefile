@@ -24,7 +24,7 @@ EXECUTABLES = \
 	# threadspammer \
 	# blocking-listener \
 	# nonblocking-listener \
-	# threaded-server
+	threaded-server
 
 all: $(EXECUTABLES)
 
@@ -33,9 +33,9 @@ sequential-server: utils.c sequential-server.c
 
 # select-server: utils.c select-server.c
 # 	$(CC) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
-# 
-# threaded-server: utils.c threaded-server.c
-# 	$(CC) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
+#
+threaded-server: utils.c threaded-server.c
+	$(CC) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
 # 
 # epoll-server: utils.c epoll-server.c
 # 	$(CC) $(CCFLAGS) $^ -o $@ $(LDFLAGS)
