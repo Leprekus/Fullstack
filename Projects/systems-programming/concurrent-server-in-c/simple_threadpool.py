@@ -34,8 +34,11 @@ class _Waiter(object):
 	def add_cancelled(self, future):
 		self.finished_futures.append(future)
 
+	def add_exception(self, future):
+		self.finished_futures.append(future)
 
-#TODO: implement set_exception
+
+
 class Future(object):
 	def __init__(self):
 		self._condition = threading.Condition()
@@ -89,8 +92,25 @@ class Future(object):
 			self._condition.notify_all()
 
 		self._invoke_callbacks()
-			
 
+
+	def set_exception(self, exception):
+		#sets return value of associated work
+		with self._condition:
+			if self._state in { CANCELLED, CANCELLED_AND_NOTIFIED, FINISHED }:
+				raise Exception('{}: {!r}'.format(self._state, self))
+
+			self._exception = exception
+			self._state = FINISHED
+
+			for waiter in self._waiters:
+				waiter.add_exception(self)
+    
+			self._condition.notify_all()
+
+		self._invoke_callbacks()
+			
+	__class_getitem__ = classmethod(types.GenericAlias)
 
 class _WorkItem:
 	def __init__(self, future, fn, args, kwargs):
