@@ -16,6 +16,7 @@ _global_shutdown_lock = threading.Lock()
 
 PENDING = 'PENDING'
 RUNNING = 'RUNNING'
+FINISHED = 'FINISHED'
 CANCELLED = 'CANCELLED'
 CANCELLED_AND_NOTIFIED = 'CANCELLED_AND_NOTIFIED'
 
@@ -26,12 +27,15 @@ class _Waiter(object):
 	def __init__(self):
 		self.event = threading.Event()
 		self.finished_futures = []
-  
+
+	def add_result(self, future):
+		self.finished_futures.append(future)
+
 	def add_cancelled(self, future):
 		self.finished_futures.append(future)
 
+
 #TODO: implement set_exception
-#TODO: implement set_result
 class Future(object):
 	def __init__(self):
 		self._condition = threading.Condition()
@@ -40,6 +44,13 @@ class Future(object):
 		self._exception = None
 		self._waiters = []
 		self._done_callbacks = []
+
+	def _invoke_callbacks(self):
+		for callback in self._done_callbacks:
+			try:
+				callback(self)
+			except Exception:
+				LOGGER.exception('exception calling callback for %r', self)
 
 	def set_running_or_notify_cancel(self):
 		'''
@@ -62,6 +73,22 @@ class Future(object):
 						self._state
 					)
 				raise RuntimeError('Future in unexpected state')
+
+	def set_result(self, result):
+		#sets return value of associated work
+		with self._condition:
+			if self._state in { CANCELLED, CANCELLED_AND_NOTIFIED, FINISHED }:
+				raise Exception('{}: {!r}'.format(self._state, self))
+
+			self._result = result
+			self._state = FINISHED
+
+			for waiter in self._waiters:
+				waiter.add_result(self)
+    
+			self._condition.notify_all()
+
+		self._invoke_callbacks()
 			
 
 
