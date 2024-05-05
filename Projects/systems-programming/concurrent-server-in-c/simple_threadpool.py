@@ -21,6 +21,7 @@ CANCELLED = 'CANCELLED'
 CANCELLED_AND_NOTIFIED = 'CANCELLED_AND_NOTIFIED'
 
 LOGGER = logging.getLogger("leprekus.future")
+BASE_LOGGER = logging.getLogger('base.logger')
 
 class _Waiter(object):
     #provides wait() and as_completed() events
@@ -120,7 +121,7 @@ class _WorkItem:
 		self.kwargs = kwargs
 
 	def run(self):
-		if not self.future.set_running_or_notify_canel():
+		if not self.future.set_running_or_notify_cancel():
 			return
 
 		try:
@@ -136,7 +137,34 @@ class _WorkItem:
 	__class_getitem__ = classmethod(types.GenericAlias)
     
 def _worker(executor_reference, work_queue, initializer, initargs):
-	pass
+	if initializer is not None:
+		return # we will only handle None for initializer
+	try:
+		while True:
+			try:
+				work_item = work_queue.get_nowait()
+			except queue.Empty:
+				#attempt to increment idle count if empty queue
+				executor = executor_reference()
+				if executor is not None:
+					executor._idle_semaphore.release()
+					#delete refs to object
+				del executor
+				work_item = work_queue.get(block=True)
+			if work_item is not None:
+				work_item.run()
+				del work_item
+				continue
+			executor = executor_reference()
+			if _shutdown or executor is None or executor._shutdown:
+				if executor is not None:
+					executor._shutdown = True
+				work_queue.put(None)
+				return
+			del executor
+
+	except BaseException:
+		BASE_LOGGER.critical('Exception in worker', exc_info=True)
 
 class SimpleThreadPool:
     
@@ -174,7 +202,7 @@ class SimpleThreadPool:
 			if _shutdown:
 				raise RuntimeError('cannot schedule new features after interpreter shutdown')
 
-			f = Future() #TODO: implement future
+			f = Future()
 			w = _WorkItem(f, fn, args, kwargs)
 
 			self._work_queue.put(w)
