@@ -11,3 +11,23 @@ Example:
 2. ```./sequential-server```
 3. ```python3 simple-client.py -n 3 localhost 9090```
 
+
+## Sequential-Server
+
+The sequential server serializes all connections.
+Clients are kept waiting until the current one disconnects. (Inefficient use of resources)
+
+
+## Threaded-Server
+
+One thread is spawned for each client.
+Pros: multiple client can connect at the same time.
+Cons: if server capacity is exceeded all clients will experience a slow service or none at all if the server crashes.
+
+
+## Threaded-Pool Server
+
+* A pool is created with a maximum number of threads
+* A queue is created that accepts fixed number of pending connections, after which any more gets refused
+  
+Pros: graceful-degradation, all connected clients are guaranteed a good & stable service

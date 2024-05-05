@@ -3,6 +3,7 @@
 //
 // Eli Bendersky [http://eli.thegreenplace.net]
 // This code is in the public domain.
+// Adapted by Raul Rodriguez to Follow along [https://eli.thegreenplace.net/2    017/concurrent-servers-part-1-introduction/]
 
 #include <pthread.h>
 #include <stdint.h>
