@@ -1,6 +1,7 @@
 import os
 import queue
 import types
+import logging
 import weakref
 import threading
 import itertools
@@ -11,11 +12,57 @@ _shutdown = False
 # while interpreted is shutting down
 _global_shutdown_lock = threading.Lock()
 
-#TODO: implement set_running_or_notify_cancel
+
+
+PENDING = 'PENDING'
+RUNNING = 'RUNNING'
+CANCELLED = 'CANCELLED'
+CANCELLED_AND_NOTIFIED = 'CANCELLED_AND_NOTIFIED'
+
+LOGGER = logging.getLogger("leprekus.future")
+
+class _Waiter(object):
+    #provides wait() and as_completed() events
+	def __init__(self):
+		self.event = threading.Event()
+		self.finished_futures = []
+  
+	def add_cancelled(self, future):
+		self.finished_futures.append(future)
+
 #TODO: implement set_exception
 #TODO: implement set_result
 class Future(object):
-    pass
+	def __init__(self):
+		self._condition = threading.Condition()
+		self._state = PENDING
+		self._result = None
+		self._exception = None
+		self._waiters = []
+		self._done_callbacks = []
+
+	def set_running_or_notify_cancel(self):
+		'''
+		Marks future as running or process cancel notifications.
+		'''
+		with self._condition:
+			if self._state == CANCELLED:
+				self._state = CANCELLED_AND_NOTIFIED
+				for waiter in self._waiters:
+					waiter.add_cancelled(self)
+				#self.cancel() triggers a notification
+				return False
+			elif self._state == PENDING:
+				self._state = RUNNING
+				return True
+			else:
+				LOGGER.critical(
+					'Future %s in unexpected state: %s',
+						id(self),
+						self._state
+					)
+				raise RuntimeError('Future in unexpected state')
+			
 
 
 class _WorkItem:
