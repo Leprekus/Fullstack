@@ -1,5 +1,6 @@
 import os
 import queue
+import types
 import weakref
 import threading
 import itertools
@@ -10,12 +11,35 @@ _shutdown = False
 # while interpreted is shutting down
 _global_shutdown_lock = threading.Lock()
 
+#TODO: implement set_running_or_notify_cancel
+#TODO: implement set_exception
+#TODO: implement set_result
 class Future(object):
     pass
 
 
 class _WorkItem:
-    pass
+	def __init__(self, future, fn, args, kwargs):
+		self.future = future
+		self.fn = fn
+		self.args = args
+		self.kwargs = kwargs
+
+	def run(self):
+		if not self.future.set_running_or_notify_canel():
+			return
+
+		try:
+			result = self.fn(*self.args, **self.kwargs)
+		except BaseException as exc:
+			self.future.set_exception(exc)
+			#break reference cycle with exc
+			self = None
+
+		else:
+			self.future.set_result
+
+	__class_getitem__ = classmethod(types.GenericAlias)
     
 def _worker(executor_reference, work_queue, initializer, initargs):
 	pass
@@ -57,7 +81,7 @@ class SimpleThreadPool:
 				raise RuntimeError('cannot schedule new features after interpreter shutdown')
 
 			f = Future() #TODO: implement future
-			w = _WorkItem #TODO: implement workitem
+			w = _WorkItem(f, fn, args, kwargs)
 
 			self._work_queue.put(w)
 			self._adjust_thread_count()
