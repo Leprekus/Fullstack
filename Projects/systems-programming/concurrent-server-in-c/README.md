@@ -1,6 +1,8 @@
 # Concurrent Server in C
 
 ## How to run
+
+### .c servers
 The following steps are performed in the terminal, inside the concurrent-server-in-c folder.
 1. To make the server executable run ```make <filename>```
 2. To start the server run ```./<filename> <portnumber>``` the portnumber is optional
@@ -10,6 +12,17 @@ Example:
 1. ```make ./sequential-server```
 2. ```./sequential-server```
 3. ```python3 simple-client.py -n 3 localhost 9090```
+
+-----------------------------------------------------------------
+
+### .py servers
+1. To start the server run ```python3 <file-name>.py -n <number-of-threads>```
+2. To test the server with sample clients run (in a separate terminal window and server running) ```python3 simple-client.py -n <number of clients> <host> <portnumber>```
+
+Example:
+1. ```python3 threadpool_implementation-server.py -n 2```
+2. ```python3 simple-client.py -n 3 localhost 9090```
+
 
 
 ## Sequential-Server

@@ -1,3 +1,8 @@
+# Code adapted by Raul Rodriguez from
+# https://github.com/python/cpython/blob/3.12/Lib/concurrent/futures/thread.py
+# https://github.com/python/cpython/blob/main/Lib/concurrent/futures/_base.py
+
+
 import os
 import queue
 import types
