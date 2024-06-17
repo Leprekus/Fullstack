@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define IRIS_DATASET "../datasets/iris/iris.data" //expected output
+#define IRIS_DATASET_TRAINING "../datasets/iris/iris.training" //training set
+#define IRIS_DATASET_TESTING "../datasets/iris/iris.testing"//post training
+#define IRIS_DATASET_SHORT "../datasets/iris/iris.short"//regularization set
 #define MAX_LINE_LENGTH 100
 #define NUM_COLS 5
 #define DF_INDEX(x, y) (x + (( NUM_COLS ) * (y)))
@@ -82,12 +86,20 @@ void print_df (h_array* df, size_t rows) {
 	
 		
 }
+
+void get_feature(const char* feature, h_array* df,  size_t rows){
+	for(size_t i = 0; i < rows; i++){
+		if(df[ DF_INDEX(4, i) ].s == feature)
+			printf("found");
+	}
+}
 int main() {
-	const char *file_path = "../datasets/iris/iris.data";
+	const char* file_path = IRIS_DATASET_TRAINING;
 
 	size_t num_lines = get_line_count(file_path);
 	h_array* df = read_file(file_path, num_lines);
 
+	get_feature("Iris-setosa", df, num_lines);
 	print_df(df, num_lines); 
 	return 0;
 		

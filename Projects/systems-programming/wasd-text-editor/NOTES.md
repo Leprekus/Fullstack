@@ -23,9 +23,13 @@ carriage return '\r':
 	- Job is to display the output of a system
 	- Is in charge of moving cursor position to first pos in same line
 
+```write()``` writes data to a file descriptor (FD)
+
 we add carriage returns to prinft() to move the cursor to start position in each \n
 
 
 iflag: input modules
 oflag: output modules
 lflag: local modules
+
+CTRL_KEY macro: ands a value of ```00011111``` and mirrorrs what the ctrl key does; strips 5-6 bits from <key-pressed> + <ktrl-key>.   
