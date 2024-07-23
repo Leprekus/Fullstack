@@ -1,0 +1,24 @@
+{
+  "port": 3000,
+  "routes": [
+    {
+      "path": "/",
+      "file": "../index.html"
+    },
+    {
+      "path": "/about",
+      "file": "about.html"
+    },
+    {
+      "path": "/contact",
+      "file": "contact.html"
+    }
+  ],
+  "staticFolder": "public",
+  "logRequests": true,
+  "securityHeaders": {
+    "Content-Security-Policy": "default-src 'self'",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY"
+  }
+}
