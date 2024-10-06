@@ -1,0 +1,3 @@
+[submodule "Projects/engines/gum/SDL"]
+	path = Projects/engines/gum/SDL
+	url = https://github.com/libsdl-org/SDL
