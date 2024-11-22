@@ -1,5 +1,6 @@
-#include "../../include/constants.h"
-const int WORD_SIZE = 8;
-const int FLASH_MEM_SIZE = 256; // size of addressable memory
-const int SRAM_SIZE = 64; // size of stack
+#include "constants.h"
+const word WORD_SIZE = 8;
+const byte FLASH_MEM_SIZE = 255; // size of addressable memory
+const byte SRAM_SIZE = 64; // size of stack
+const byte REG_SIZE = 8;
 
